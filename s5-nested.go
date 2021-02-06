@@ -20,6 +20,16 @@ func main() {
 		state: "Delhi",
 	}
 
+	p.contact = []Contact{
+		{"user1@gmail.com", "9000000001"},
+		{"user2@gmail.com", "9000000002"},
+	}
+
+	p.contact = []Contact{
+
+		Contact{"user3@gmail.com", "9000000003"},
+	}
+
 	fmt.Println(p.name, p.age)
 	fmt.Println(p.address.city)
 	fmt.Println(p)
@@ -32,7 +42,13 @@ func main() {
 			city:  "Patna",
 			state: "Bihar",
 		},
+
+		contact : []Contact{
+			{"user1@gmail.com", "9000000001"},
+			{"user2@gmail.com", "9000000002"},
+		},
 	}
+
 	fmt.Println(p1.name, p1.age)
 	fmt.Println(p1.address.city)
 	fmt.Println(p1)

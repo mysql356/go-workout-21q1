@@ -15,8 +15,13 @@ func main() {
 	var p Person
 	p.name = "aa"
 	p.age = 20
-	p.city = "ND"
-	p.state = "Delhi"
+//	p.city = "New Delhi"
+//	p.state = "Delhi"
+
+	p.Address = Address{
+		city:  "ND",
+		state: "Delhi",
+	}
 
 	fmt.Println(p.name, p.age)
 	fmt.Println(p.city)
