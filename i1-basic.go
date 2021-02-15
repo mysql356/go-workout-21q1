@@ -8,6 +8,7 @@ func main() {
 	var a interface{}
 	a = "aa"
 	fmt.Println(a.(string))
+	fmt.Printf("a ======>%s %T \n", a, a)
 
 	//int
 	var b interface{}
@@ -22,11 +23,8 @@ func main() {
 	arr := [4]interface{}{1, "aa", 2.5, nil}
 	fmt.Println(arr)
 
-
-	for i := 0; i < len(arr) ; i++ {
+	for i := 0; i < len(arr); i++ {
 		fmt.Println(arr[i])
 	}
-
-
 
 }
