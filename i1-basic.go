@@ -27,4 +27,17 @@ func main() {
 		fmt.Println(arr[i])
 	}
 
+	//interface-in-function
+	arr2 := []interface{}{1, "aa", 2.5, nil}
+	fmt.Println(arr2)
+	fmt.Printf("%T \n", arr2)
+
+	show(arr2)
+
+}
+
+func show(b []interface{}) {
+	for i := 0; i < len(b); i++ {
+		fmt.Println(b[i])
+	}
 }
