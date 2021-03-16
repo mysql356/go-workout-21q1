@@ -10,7 +10,7 @@ func main() {
 	findType("aaa")
 	findType(10)
 	findType(math.Pi)
-	p := person{"aa", 20}
+	p := Person{"aa", 20}
 	findType(p)
 }
 
@@ -20,8 +20,8 @@ func findType(i interface{}) {
 
 	switch v := i.(type) {
 
-	case describe:
-		v.desc()
+	case Describe:
+		v.Desc()
 
 	case string:
 		fmt.Println(i.(string))
@@ -35,15 +35,15 @@ func findType(i interface{}) {
 	}
 }
 
-type describe interface {
-	desc()
+type Describe interface {
+	Desc()
 }
 
-type person struct {
+type Person struct {
 	name string
 	age  int
 }
 
-func (p person) desc() {
+func (p Person) Desc() {
 	fmt.Println(p.name, p.age)
 }

@@ -12,8 +12,8 @@ func (m customFloat64) Test() {
 	fmt.Println(m)
 }
 
-func describe(t Tester) {
-	fmt.Printf("\n%T %v", t, t)
+func Describe(t Tester) {
+	fmt.Printf("%T %v", t, t)
 }
 
 func main() {
@@ -21,7 +21,7 @@ func main() {
 	f := customFloat64(10.5)
 	t = f
 
-	describe(t)
 	t.Test()
+	Describe(t)
 
 }
