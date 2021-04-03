@@ -10,7 +10,7 @@ var a, b = 5, 10
 
 func init() {
 
-	fmt.Println("initialize")
+	fmt.Println("main pkg")
 	if a < 0 {
 		log.Println("Len < 0")
 	}

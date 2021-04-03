@@ -11,6 +11,7 @@ func main() {
 	//1
 	a := "aaa"
 	describe(a)
+
 	//2
 	b := 10
 	describe(b)
