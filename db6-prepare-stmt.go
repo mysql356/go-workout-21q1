@@ -14,6 +14,7 @@ type BookSingle struct {
 	Author          string
 	Pages           int
 	PublicationDate string
+	AddedOn         string
 }
 
 type Book struct {
@@ -21,33 +22,19 @@ type Book struct {
 }
 
 var db *sql.DB
-var err error
 
 func init() {
-
-}
-
-func main0() {
-
-	var n int
-	fmt.Printf("Enter the book id: ")
-	fmt.Scanf("%d", &n)
-
-	str := "SELECT name  FROM `books`  where id = ? "
-	stmt, err := db.Prepare(str)
-
+	//tmpDB, err := sql.Open("postgres", "user=postgres password=postgres dbname=dev sslmode=disable")
+	tmpDB, err := sql.Open("mysql", "root:root@2021@tcp(localhost:3306)/test")
 	if err != nil {
 		log.Println(err)
+		log.Println(err.Error())
 	}
-
-	var name string
-	err = db.QueryRow(str, n).Scan(&name)
-
-	defer stmt.Close()
-
-	fmt.Println(name)
+	db = tmpDB
+	//	defer db.Close()
 }
 
+//simple
 func main1() {
 
 	var n int
@@ -55,35 +42,23 @@ func main1() {
 	fmt.Scanf("%d", &n)
 
 	str := "SELECT name  FROM `books`  where id = ? "
-	stmt, err := db.Prepare(str)
 
+	var name string
+	err := db.QueryRow(str, n).Scan(&name)
 	if err != nil {
 		log.Println(err)
 	}
 
-	var name string
-	err = stmt.QueryRow(n).Scan(&name)
-
-	defer stmt.Close()
-
 	fmt.Println(name)
+	defer db.Close()
 }
 
-func main() {
-	// Open up our database connection.
-	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3307)/test")
+//prepare + single value
+func main2() {
 
-	// if there is an error opening the connection, handle it
-	if err != nil {
-		log.Print(err.Error())
-	}
-	defer db.Close()
-	//multiple row ///////////////////////////////////////////////////
 	var n int
 	fmt.Printf("Enter the book id: ")
 	fmt.Scanf("%d", &n)
-
-	var book Book
 
 	str := "SELECT name  FROM `books`  where id = ? "
 	stmt, err := db.Prepare(str)
@@ -92,10 +67,45 @@ func main() {
 		log.Println(err)
 	}
 
-	//err = stmt.QueryRow(n).Scan(&book.ID, &book.Name, &book.Author, &book.Pages, &book.PublicationDate)
-	err = stmt.QueryRow(n).Scan(&book.Name)
+	var name string
+	fmt.Println(name)
+	err = stmt.QueryRow(n).Scan(&name)
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Println(name)
 
 	defer stmt.Close()
+	defer db.Close()
 
+}
+
+//prepare + struct
+func main() {
+
+	//multiple row ///////////////////////////////////////////////////
+	var n int
+	fmt.Printf("Enter the book id: ")
+	fmt.Scanf("%d", &n)
+
+	var book Book
 	fmt.Println(book)
+
+	str := "SELECT *  FROM `books`  where id = ? "
+	stmt, err := db.Prepare(str)
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	err = stmt.QueryRow(n).Scan(&book.ID, &book.Name, &book.Author, &book.Pages, &book.PublicationDate, &book.AddedOn)
+	//err = stmt.QueryRow(n).Scan(&book.Name)
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Println(book)
+
+	defer stmt.Close()
+	defer db.Close()
+
 }
