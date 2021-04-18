@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -11,9 +10,9 @@ import (
 type BookSingle struct {
 	ID              int
 	Name            string
-	Author          string
+	Author          sql.NullString
 	Pages           int
-	PublicationDate string
+	PublicationDate sql.NullString
 	AddedOn         string
 }
 
@@ -22,16 +21,21 @@ type Book struct {
 }
 
 var db *sql.DB
+var err error
 
 func init() {
 	//tmpDB, err := sql.Open("postgres", "user=postgres password=postgres dbname=dev sslmode=disable")
 	tmpDB, err := sql.Open("mysql", "root:root@2021@tcp(localhost:3306)/test")
-	if err != nil {
-		log.Println(err)
-		log.Println(err.Error())
-	}
+	logOnErr(err)
 	db = tmpDB
 	//	defer db.Close()
+}
+
+func logOnErr(err error) {
+	if err != nil {
+		//log.Println(err.Error())
+		panic(err)
+	}
 }
 
 //simple
@@ -42,12 +46,9 @@ func main1() {
 	fmt.Scanf("%d", &n)
 
 	str := "SELECT name  FROM `books`  where id = ? "
-
 	var name string
 	err := db.QueryRow(str, n).Scan(&name)
-	if err != nil {
-		log.Println(err)
-	}
+	logOnErr(err)
 
 	fmt.Println(name)
 	defer db.Close()
@@ -62,17 +63,13 @@ func main2() {
 
 	str := "SELECT name  FROM `books`  where id = ? "
 	stmt, err := db.Prepare(str)
-
-	if err != nil {
-		log.Println(err)
-	}
+	logOnErr(err)
 
 	var name string
 	fmt.Println(name)
 	err = stmt.QueryRow(n).Scan(&name)
-	if err != nil {
-		log.Println(err)
-	}
+	logOnErr(err)
+
 	fmt.Println(name)
 
 	defer stmt.Close()
@@ -93,16 +90,10 @@ func main() {
 
 	str := "SELECT *  FROM `books`  where id = ? "
 	stmt, err := db.Prepare(str)
-
-	if err != nil {
-		log.Println(err)
-	}
+	logOnErr(err)
 
 	err = stmt.QueryRow(n).Scan(&book.ID, &book.Name, &book.Author, &book.Pages, &book.PublicationDate, &book.AddedOn)
-	//err = stmt.QueryRow(n).Scan(&book.Name)
-	if err != nil {
-		log.Println(err)
-	}
+	logOnErr(err)
 	fmt.Println(book)
 
 	defer stmt.Close()

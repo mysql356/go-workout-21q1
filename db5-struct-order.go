@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -11,9 +10,9 @@ import (
 type BookOrder struct {
 	A int
 	B string
-	C string
+	C sql.NullString
 	D int
-	E string
+	E sql.NullString
 	F string
 }
 
@@ -21,28 +20,33 @@ type Book struct {
 	BookOrder
 }
 
+var db *sql.DB
+var err error
+
+func init() {
+	//tmpDB, err := sql.Open("postgres", "user=postgres password=postgres dbname=dev sslmode=disable")
+	tmpDB, err := sql.Open("mysql", "root:root@2021@tcp(localhost:3306)/test")
+	logOnErr(err)
+	db = tmpDB
+	//	defer db.Close()
+}
+
+func logOnErr(err error) {
+	if err != nil {
+		//log.Println(err.Error())
+		panic(err)
+	}
+}
+
 func main() {
-	// Open up our database connection.
-	db, err := sql.Open("mysql", "root:root@2021@tcp(127.0.0.1:3306)/test")
 
-	// if there is an error opening the connection, handle it
-	if err != nil {
-		log.Print(err.Error())
-	}
-	defer db.Close()
-
-	//multiple row ///////////////////////////////////////////////////
 	rows, err := db.Query("SELECT * FROM `books` ")
-	if err != nil {
-		log.Println(err)
-	}
+	logOnErr(err)
 
 	for rows.Next() {
 		var book Book
 		err = rows.Scan(&book.A, &book.B, &book.C, &book.D, &book.E, &book.F)
-		if err != nil {
-			panic(err.Error())
-		}
+		logOnErr(err)
 
 		fmt.Print(book.A, "====> ")
 		fmt.Println(book)

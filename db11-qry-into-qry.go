@@ -7,12 +7,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type Bk struct {
-	ID      int
-	Name    string
-	AddedOn string
-}
-
 var db *sql.DB
 var err error
 
@@ -30,28 +24,32 @@ func logOnErr(err error) {
 		panic(err)
 	}
 }
-
-/*
--Struct (ID, Name, AddedOn)
-
-#Mandatory
--Query (seelct id,name from books)
--Scan (&ID, &Name)
-
-*/
-
 func main() {
 
-	//multiple row ///////////////////////////////////////////////////
-	rows, err := db.Query("SELECT id, name FROM `books` ")
-	logOnErr(err)
+	defer db.Close()
 
+	//Category
+	rows, err := db.Query("SELECT id, name FROM `language`")
 	for rows.Next() {
-		var book Bk
-		err = rows.Scan(&book.ID, &book.Name)
+		var id int
+		var name string
+		err = rows.Scan(&id, &name)
 		logOnErr(err)
+		fmt.Println("Language :: ", id, name)
 
-		fmt.Println(book)
+		//Item
+		var id1 int
+		var name1 string
+		rows1, err := db.Query("SELECT id, name FROM `books`  where language = ? ", id)
+		for rows1.Next() {
+			err = rows1.Scan(&id1, &name1)
+			logOnErr(err)
+
+			fmt.Println("Book : ", id1, name1)
+
+		}
+		fmt.Println("--------------------------")
+
 	}
 
 }

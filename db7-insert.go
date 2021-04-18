@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -21,28 +20,34 @@ type Book struct {
 	BookAll
 }
 
-func main() {
-	// Open up our database connection.
-	db, err := sql.Open("mysql", "root:root@2021@tcp(127.0.0.1:3306)/test")
+var db *sql.DB
+var err error
 
-	// if there is an error opening the connection, handle it
+func init() {
+	//tmpDB, err := sql.Open("postgres", "user=postgres password=postgres dbname=dev sslmode=disable")
+	tmpDB, err := sql.Open("mysql", "root:root@2021@tcp(localhost:3306)/test")
+	logOnErr(err)
+	db = tmpDB
+	//	defer db.Close()
+}
+
+func logOnErr(err error) {
 	if err != nil {
-		log.Print(err.Error())
+		//log.Println(err.Error())
+		panic(err)
 	}
+}
+
+func main() {
+
 	defer db.Close()
 
 	sql := "INSERT INTO books(name, pages) VALUES ('C', 150)"
 	res, err := db.Exec(sql)
-
-	if err != nil {
-		panic(err.Error())
-	}
+	logOnErr(err)
 
 	lastId, err := res.LastInsertId()
-
-	if err != nil {
-		log.Fatal(err)
-	}
+	logOnErr(err)
 
 	fmt.Printf("The last inserted row id: %d\n", lastId)
 }
