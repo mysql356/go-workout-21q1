@@ -1,10 +1,10 @@
 package main
 
 import (
-    "archive/zip"
-    "fmt"
-    "io"
-    "os"
+	"archive/zip"
+	"fmt"
+	"io"
+	"os"
 )
 
 func main() {
