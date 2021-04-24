@@ -10,5 +10,5 @@ func main() {
 		fmt.Println(a, "---", b)
 	}
 
-	fmt.Println(os.Args[1:])
+	fmt.Println(os.Args)
 }

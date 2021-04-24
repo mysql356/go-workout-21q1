@@ -16,9 +16,9 @@ func argFunc(arg string) {
 }
 
 func main() {
-
 	args := os.Args[1]
 	argFunc(args)
-	fmt.Println(os.Args[3:4])
-
+	fmt.Println(os.Args[0])
+	fmt.Println(os.Args[1])
+	fmt.Println(os.Args)
 }
