@@ -6,7 +6,8 @@ import (
 	"os"
 )
 
-func main() {
+//once
+func main0() {
 
 	fmt.Print("Enter text: ")
 	input := bufio.NewScanner(os.Stdin)
@@ -15,24 +16,29 @@ func main() {
 	fmt.Println("Input string: ", input.Text())
 }
 
-func main0() {
+//multiple
+func main1() {
+	fmt.Print("Enter text: ")
 	input := bufio.NewScanner(os.Stdin)
 	for input.Scan() {
-		fmt.Println(input.Text())
+		fmt.Println("Input string: ", input.Text())
+		fmt.Print("Enter text: ")
 	}
 }
 
-func main2() {
-
+//multiple + condition
+func main() {
+	fmt.Print("Enter text: ")
 	c := make(map[string]int)
 	input := bufio.NewScanner(os.Stdin)
 	for input.Scan() {
-		fmt.Println(input.Text())
+		fmt.Println("Input string: ", input.Text())
+		fmt.Print("Enter text: ")
 		c[input.Text()]++
 
-		//	if input.Text() == "break" {
-		//		break
-		//	}
+		if input.Text() == "break" {
+			break
+		}
 	}
 
 	fmt.Println(c)
