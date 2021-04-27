@@ -24,9 +24,20 @@ func main() {
 
 	//3
 	b := [3]int{10, 20, 30}
-	fmt.Println("b==============",b)
+	fmt.Println("b==============", b)
 
 	//4
 	c := [...]int{10, 20, 30}
-	fmt.Println("c===================",c)
+	fmt.Println("c===================", c)
+
+	//5
+	arrPrint(b)
+}
+
+func arrPrint(a [3]int) {
+
+	for k, v := range a {
+		fmt.Println(k, "===", v)
+	}
+
 }
