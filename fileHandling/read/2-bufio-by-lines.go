@@ -14,15 +14,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	defer f.Close()
 
 	scanner := bufio.NewScanner(f)
-
 	fmt.Println(scanner)
 
 	for scanner.Scan() {
-
 		fmt.Println(scanner.Text())
 	}
 
