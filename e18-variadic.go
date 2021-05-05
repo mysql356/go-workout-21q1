@@ -37,6 +37,7 @@ func str() {
 	//2
 	s1 := []string{"mm", "nn"}
 	show1(s1...)
+	Println(s1, len(s1), cap(s1))
 
 	//3
 	s2 := []string{"xx", "yy"}
@@ -52,7 +53,8 @@ func show(s ...string) {
 
 func show1(s1 ...string) {
 	s1[0] = "mmm"
-	//	s1[1] = "nnn"
+	s1[1] = "nnn"
+	s1 = append(s1, "ooo") //work in local scope only
 
 }
 
