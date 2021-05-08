@@ -21,3 +21,5 @@ func hello(done chan bool) {
 	fmt.Println("Hello")
 	done <- true
 }
+
+//https://play.golang.org/p/MDSGQEYO1gE
