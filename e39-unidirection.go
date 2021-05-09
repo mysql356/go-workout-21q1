@@ -23,3 +23,4 @@ func main() {
 	d <- 50
 
 }
+//https://play.golang.org/p/5eXe-6ioC1o
