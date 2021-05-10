@@ -17,3 +17,5 @@ func prod(c chan int) {
 	}
 	close(c)
 }
+//https://play.golang.org/p/Hgjay901R3t
+//https://play.golang.org/p/erQJGsuh37U 
