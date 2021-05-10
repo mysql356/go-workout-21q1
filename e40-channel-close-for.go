@@ -22,3 +22,4 @@ func prod(c chan int) {
 	}
 	close(c)
 }
+//https://play.golang.org/p/hmPqselI07Q
