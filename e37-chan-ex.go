@@ -26,3 +26,5 @@ func sum(n int, c1 chan int) {
 func product(n int, c2 chan int) {
 	c2 <- n * 10
 }
+
+//https://play.golang.org/p/VwBJAOnXCOT

@@ -7,3 +7,5 @@ func main() {
 	c <- 5
 	fmt.Println(<-c)
 }
+
+//https://play.golang.org/p/rxi9mcsiCdx

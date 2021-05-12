@@ -29,3 +29,5 @@ func process(i int, wg *sync.WaitGroup) {
 	fmt.Println(i, "G-E", sum)
 	wg.Done()
 }
+
+//https://play.golang.org/p/8tN0ho-Agyk

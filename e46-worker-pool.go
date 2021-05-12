@@ -32,3 +32,5 @@ func main() {
 		fmt.Println("Output <<<< ", <-results)
 	}
 }
+
+//https://play.golang.org/p/8tN0ho-Agyk

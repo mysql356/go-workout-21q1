@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
 	ch := make(chan int)
@@ -23,3 +25,5 @@ func main1() {
 func gor(ch chan int) {
 	fmt.Println(<-ch)
 }
+
+//https://play.golang.org/p/K7EnkToJFkF
